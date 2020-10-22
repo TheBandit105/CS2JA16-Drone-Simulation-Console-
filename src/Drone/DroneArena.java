@@ -8,7 +8,6 @@ public class DroneArena {
     private int arenaHeight;
     Random randomCoords;
     private Drone d;
-    
 
     public DroneArena(int x, int y){
         arenaWidth = x;
@@ -21,7 +20,7 @@ public class DroneArena {
         int posY = randomCoords.nextInt(arenaHeight);
 
         d = new Drone(posX, posY);
-        }
+    }
 
     public String toString(){
         return "The size of the arena is: " + arenaWidth + " * " + arenaHeight + "\n" + d.toString();
