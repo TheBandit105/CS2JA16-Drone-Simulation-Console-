@@ -1,28 +1,30 @@
 package Drone;
 
+import java.util.Random;
+
 public class DroneArena {
 
     private int arenaWidth;
     private int arenaHeight;
+    Random randomCoords;
     private Drone d;
     
 
     public DroneArena(int x, int y){
         arenaWidth = x;
         arenaHeight = y;
+        randomCoords = new Random();
     }
 
     public void addDrone(){
-        int posX = 10;
-        int posY = 5;
+        int posX = randomCoords.nextInt(arenaWidth);
+        int posY = randomCoords.nextInt(arenaHeight);
 
         d = new Drone(posX, posY);
         }
 
     public String toString(){
-
-        return "The size of the arena is: " + arenaWidth + " * " + arenaHeight + " and " + d.toString();
-
+        return "The size of the arena is: " + arenaWidth + " * " + arenaHeight + "\n" + d.toString();
     }
 
     public static void main(String[] args){
