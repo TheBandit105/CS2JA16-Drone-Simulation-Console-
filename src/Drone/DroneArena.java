@@ -2,27 +2,28 @@ package Drone;
 
 public class DroneArena {
 
-    private int arenaLength;
     private int arenaWidth;
+    private int arenaHeight;
+    private Drone d;
+    
 
-
-    DroneArena(int x, int y){
-        arenaLength = x;
-        arenaWidth = y;
+    public DroneArena(int x, int y){
+        arenaWidth = x;
+        arenaHeight = y;
     }
 
     public void addDrone(){
-        int posX, posY;
+        int posX = 10;
+        int posY = 5;
 
-    }
-
+        d = new Drone(posX, posY);
+        }
 
     public String toString(){
 
-        return "The size of the arena is: " + arenaLength + " * " + arenaWidth;
+        return "The size of the arena is: " + arenaWidth + " * " + arenaHeight + " and " + d.toString();
 
     }
-
 
     public static void main(String[] args){
         DroneArena a = new DroneArena(20, 10);
@@ -30,3 +31,4 @@ public class DroneArena {
         System.out.println(a.toString());
     }
 }
+
