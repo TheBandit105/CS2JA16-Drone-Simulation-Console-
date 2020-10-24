@@ -18,11 +18,18 @@ public class DroneArena {
     }
 
     public void addDrone(){
-        int posX = randomCoords.nextInt(arenaWidth);
-        int posY = randomCoords.nextInt(arenaHeight);
+        int posX;
+        int posY;
+        if (numDrone.size() < arenaWidth * arenaHeight) {
+            do {
+                posX = randomCoords.nextInt(arenaWidth);
+                posY = randomCoords.nextInt(arenaHeight);
+            } while (getDroneAt(posX, posY) != null);
 
-        Drone test = new Drone(posX, posY);
-        numDrone.add(test);
+            Drone anyPlace = new Drone(posX, posY);
+            numDrone.add(anyPlace);
+        }
+
     }
 
     public String toString(){
@@ -50,6 +57,10 @@ public class DroneArena {
 
     public static void main(String[] args){
         DroneArena a = new DroneArena(3, 3);
+        a.addDrone();
+        a.addDrone();
+        a.addDrone();
+        a.addDrone();
         a.addDrone();
 
         System.out.println(a.toString());
