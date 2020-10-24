@@ -15,6 +15,13 @@ public class Drone {
         return "Drone " + droneID + " at " + dx + ", " + dy;
     }
 
+    public boolean isHere (int sx, int sy){
+        if (sx == dx && sy == dy)
+            return true;
+        else
+            return false;
+    }
+
     public static void main (String[] args) {
         Drone d = new Drone(5,3);
         System.out.println(d.toString());
