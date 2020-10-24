@@ -37,10 +37,21 @@ public class DroneArena {
         return spot;
     }
 
+    public Drone getDroneAt(int x, int y){
+        Drone temp = null;
+        for (Drone a : numDrone){
+            if (a.isHere(x,y) == true){
+                temp = a;
+            }
+        }
+        return temp;
+    }
+
+
     public static void main(String[] args){
-        DroneArena a = new DroneArena(20, 10);
+        DroneArena a = new DroneArena(3, 3);
         a.addDrone();
-        a.addDrone();
+
         System.out.println(a.toString());
     }
 }
