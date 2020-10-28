@@ -28,6 +28,17 @@ public class ConsoleCanvas {
         block[dx + 1][dy + 1] = ch;
     }
 
+    public String toString() {
+        String print = "";
+        for (int i = 0; i < blockX; i++) {
+            for (int j = 0; j < blockY; j++) {
+                print = print + block[i][j] + " ";
+            }
+            print = print + "\n";
+        }
+        return print;
+    }
+
     public static void main(String[] args){
         ConsoleCanvas c = new ConsoleCanvas(10, 5);
         c.showIt(4,3,'D');
