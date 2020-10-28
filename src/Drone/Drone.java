@@ -11,6 +11,11 @@ public class Drone {
         droneID = droneCount++;
     }
 
+    public void displayDrone(ConsoleCanvas c){
+        char droneRep = 'D';
+        c.showIt(dx, dy, droneRep);
+    }
+
     public String toString(){
         return "Drone " + droneID + " at " + dx + ", " + dy;
     }
