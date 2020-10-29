@@ -29,7 +29,22 @@ public class DroneArena {
             Drone anyPlace = new Drone(posX, posY);
             numDrone.add(anyPlace);
         }
+    }
 
+    public int getArenaWidth(){
+        return arenaWidth;
+    }
+
+    public int getArenaHeight() {
+        return arenaHeight;
+    }
+
+    public void showDrones(ConsoleCanvas c){
+        for (int i = 0; i < numDrone.toArray().length; i++){
+            if(numDrone.get(i) != null){
+                numDrone.get(i).displayDrone(c);
+            }
+        }
     }
 
     public String toString(){
@@ -54,12 +69,8 @@ public class DroneArena {
         return temp;
     }
 
-
     public static void main(String[] args){
-        DroneArena a = new DroneArena(3, 3);
-        a.addDrone();
-        a.addDrone();
-        a.addDrone();
+        DroneArena a = new DroneArena(20, 10);
         a.addDrone();
         a.addDrone();
 
