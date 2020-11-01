@@ -29,6 +29,16 @@ public class Drone {
             return false;
     }
 
+    public void tryToMove(DroneArena area){
+        switch (facing){
+            case North:
+            case East:
+            case West:
+            case South:
+        }
+
+    }
+
     public static void main (String[] args) {
         Drone d = new Drone(5,3, Direction.East);
         System.out.println(d.toString());

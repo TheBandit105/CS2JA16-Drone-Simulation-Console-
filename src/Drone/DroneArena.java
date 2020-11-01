@@ -59,6 +59,10 @@ public class DroneArena {
         return spot;
     }
 
+    public boolean canMoveHere(int x, int y){
+
+    }
+
     public Drone getDroneAt(int x, int y){
         Drone temp = null;
         for (Drone a : numDrone){
