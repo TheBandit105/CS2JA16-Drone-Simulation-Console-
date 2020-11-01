@@ -9,5 +9,11 @@ public enum Direction {
     public static Direction getRandomDirection() {
         Random random = new Random();
         return values()[random.nextInt(values().length)];
+
     }
+
+    public Direction nextDirection() {
+        return values()[this.ordinal() + 1 % values().length];
+    }
+    
 }
