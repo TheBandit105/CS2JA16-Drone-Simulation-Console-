@@ -60,7 +60,11 @@ public class DroneArena {
     }
 
     public boolean canMoveHere(int x, int y){
-
+        if (getDroneAt(x,y) != null || x >= arenaWidth || y >= arenaHeight || x < 0 || y < 0){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public Drone getDroneAt(int x, int y){
