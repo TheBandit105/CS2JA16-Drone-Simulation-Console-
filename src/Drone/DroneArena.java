@@ -14,7 +14,7 @@ public class DroneArena {
         arenaHeight = y;
         randomCoords = new Random();
         numDrone = new ArrayList<Drone>();
-        Drone d = new Drone(1,1);
+        Drone d = new Drone(1,1, Direction.North);
     }
 
     public void addDrone(){
@@ -26,7 +26,7 @@ public class DroneArena {
                 posY = randomCoords.nextInt(arenaHeight);
             } while (getDroneAt(posX, posY) != null);
 
-            Drone anyPlace = new Drone(posX, posY);
+            Drone anyPlace = new Drone(posX, posY, Direction.getRandomDirection());
             numDrone.add(anyPlace);
         }
     }
