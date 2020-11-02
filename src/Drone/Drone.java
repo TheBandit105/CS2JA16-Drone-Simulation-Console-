@@ -29,28 +29,28 @@ public class Drone {
             return false;
     }
 
-    public void tryToMove(DroneArena area){
+    public void tryToMove(DroneArena a){
         switch (facing){
             case North:
-                if(area.canMoveHere(dx - 1, dy))
+                if(a.canMoveHere(dx - 1, dy))
                     dx = dx - 1;
                 else
                     facing = facing.nextDirection();
                 break;
             case East:
-                if(area.canMoveHere(dx, dy + 1))
+                if(a.canMoveHere(dx, dy + 1))
                     dy = dy - 1;
                 else
                     facing = facing.nextDirection();
                 break;
             case South:
-                if(area.canMoveHere(dx + 1, dy))
+                if(a.canMoveHere(dx + 1, dy))
                     dx = dx + 1;
                 else
                     facing = facing.nextDirection();
                 break;
             case West:
-                if(area.canMoveHere(dx, dy - 1))
+                if(a.canMoveHere(dx, dy - 1))
                     dy = dy - 1;
                 else
                     facing = facing.nextDirection();

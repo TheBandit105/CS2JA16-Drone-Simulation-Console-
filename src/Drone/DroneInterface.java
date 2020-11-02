@@ -12,7 +12,7 @@ public class DroneInterface {
 
         char ch = ' ';
         do {
-            System.out.print("\nEnter (A)dd drone, get (I)nformation or e(X)it > ");
+            System.out.print("\nEnter (A)dd drone, get (I)nformation, (D)isplay arena, (M)ove drones or e(X)it > ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -30,6 +30,11 @@ public class DroneInterface {
                 case 'D':
                     doDisplay();
                     break;
+                case 'm':
+                case 'M':
+                    myArena.moveAllDrones(myArena);
+                    doDisplay();
+                    break;
             }
         } while (ch != 'X');						// test if end
 
@@ -37,7 +42,7 @@ public class DroneInterface {
     }
 
     void doDisplay(){
-        myArena = new DroneArena(20, 10);
+        //myArena = new DroneArena(10, 10);
         ConsoleCanvas field = new ConsoleCanvas(myArena.getArenaWidth() + 2, myArena.getArenaHeight() + 2);
         myArena.showDrones(field);
         System.out.println(field.toString());

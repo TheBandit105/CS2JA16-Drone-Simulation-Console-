@@ -67,6 +67,11 @@ public class DroneArena {
         }
     }
 
+    public void moveAllDrones(DroneArena a){
+        for (Drone d : numDrone)
+            d.tryToMove(a);
+    }
+
     public Drone getDroneAt(int x, int y){
         Drone temp = null;
         for (Drone a : numDrone){
