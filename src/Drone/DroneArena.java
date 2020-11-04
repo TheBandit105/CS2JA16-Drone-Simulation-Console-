@@ -40,10 +40,8 @@ public class DroneArena {
     }
 
     public void showDrones(ConsoleCanvas c){
-        for (int i = 0; i < numDrone.toArray().length; i++){
-            if(numDrone.get(i) != null){
-                numDrone.get(i).displayDrone(c);
-            }
+        for (Drone d : numDrone){
+            d.displayDrone(c);
         }
     }
 

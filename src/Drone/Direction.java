@@ -13,7 +13,11 @@ public enum Direction {
     }
 
     public Direction nextDirection() {
-        return values()[this.ordinal() + 1 % values().length];
+        int change = Direction.values().length - 1;
+        System.out.println(change);
+        if(this.ordinal() == change)
+            return values()[0];
+        else
+            return values()[this.ordinal() + 1];
     }
-    
 }

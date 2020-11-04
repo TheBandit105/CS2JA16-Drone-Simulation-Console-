@@ -8,7 +8,7 @@ public class DroneInterface {
 
     public DroneInterface() {
         s = new Scanner(System.in);			    // set up scanner for user input
-        myArena = new DroneArena(20, 10);	    // create arena of size 20*6
+        myArena = new DroneArena(10, 20);	    // create arena of size 20*6
 
         char ch = ' ';
         do {
@@ -50,11 +50,9 @@ public class DroneInterface {
         myArena.showDrones(field);
         System.out.println(field.toString());
     }
-
     public static void main(String[] args) {
         DroneInterface r = new DroneInterface();	// just call the interface
     }
-
 }
 
 

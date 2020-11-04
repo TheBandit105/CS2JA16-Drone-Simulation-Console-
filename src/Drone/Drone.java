@@ -39,7 +39,7 @@ public class Drone {
                 break;
             case East:
                 if(a.canMoveHere(dx, dy + 1))
-                    dy = dy - 1;
+                    dy = dy + 1;
                 else
                     facing = facing.nextDirection();
                 break;
