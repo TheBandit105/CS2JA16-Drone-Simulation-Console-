@@ -28,6 +28,8 @@ public class DroneArena {
 
             Drone anyPlace = new Drone(posX, posY, Direction.getRandomDirection());
             numDrone.add(anyPlace);
+        } else {
+            System.out.println("Drone not added! Specified drone arena full!");
         }
     }
 

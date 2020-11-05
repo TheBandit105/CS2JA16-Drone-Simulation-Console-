@@ -13,6 +13,18 @@ public class Drone {
         facing = f;
     }
 
+    public int getX(){
+        return dx;
+    }
+
+    public int getY(){
+        return dy;
+    }
+
+    public Direction getFacing() {
+        return facing;
+    }
+
     public void displayDrone(ConsoleCanvas c){
         char droneRep = 'D';
         c.showIt(dx, dy, droneRep);
