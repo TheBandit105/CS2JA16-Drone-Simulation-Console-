@@ -4,7 +4,7 @@ public class Drone {
 
     private Direction facing;
     private int dx, dy, droneID;
-    public static int droneCount = 0;
+    public static int droneCount = -1;
 
     public Drone (int x, int y, Direction f) {
         dx = x;

@@ -8,6 +8,7 @@ public class DroneArena {
     private int arenaHeight;
     Random randomCoords;
     ArrayList <Drone> numDrone;
+    private int numDroneArena;
 
     public DroneArena(int x, int y){
         arenaWidth = x;
@@ -28,8 +29,6 @@ public class DroneArena {
 
             Drone anyPlace = new Drone(posX, posY, Direction.getRandomDirection());
             numDrone.add(anyPlace);
-        } else {
-            System.out.println("Drone not added! Specified drone arena full!");
         }
     }
 
@@ -39,6 +38,15 @@ public class DroneArena {
 
     public int getArenaHeight() {
         return arenaHeight;
+    }
+
+    public int arenaDroneNum(){
+        if(numDroneArena < (arenaWidth * arenaHeight)){
+            numDroneArena++;
+        } else {
+            System.err.println("\nMaximum drone capacity reached!");
+        }
+        return numDroneArena;
     }
 
     public void showDrones(ConsoleCanvas c){

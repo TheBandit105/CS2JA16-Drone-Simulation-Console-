@@ -1,5 +1,6 @@
 package Drone;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,7 @@ public class DroneInterface {
             System.out.print("\nNote: Before you start, please create a new arena.");
             System.out.print("\n\nPlease select one of the following options: " + "\n\tAdd drone -> A " +  "\n\tGet info -> I "
                     + "\n\tDisplay arena -> D " + "\n\tCreate arena -> N " + "\n\tMove drones -> M "
-                    + "\n\tMove drones 10 times -> T" + "\n\tExit -> X " + "\n\n\t> ");
+                    + "\n\tMove drones 10 times -> T" + "\n\tCredits -> C " + "\n\tExit -> X " + "\n\n\t> ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -30,14 +31,19 @@ public class DroneInterface {
                     }
                     else {
                         myArena.addDrone();
-                    }// add a new drone to arena
+                        System.out.println("\nAdded drone!");
+                        System.out.println("Total number of drones in arena = " + myArena.arenaDroneNum());
+                    }
                     break;
                 case 'I' :
                 case 'i' :
                     if (myArena.getArenaHeight() == 0 || myArena.getArenaWidth() == 0) {
                         System.err.println("Error! No arena detected! Please create a new arena.\n");
                     }
-                    else {
+                    else if (myArena.numDrone.isEmpty() == true){
+                        System.err.println("Warning! Please insert drones to move!\n");
+                    }
+                    else{
                         System.out.print("\n" + myArena.toString() + "\n");
                     }
                     break;
@@ -58,9 +64,13 @@ public class DroneInterface {
                     if(inputX == 0 || inputY == 0){
                         System.err.println("Error! No arena detected! Please create a new arena.\n");
                     } else {
-                        System.out.println("\n");
-                        myArena.moveAllDrones(myArena);
-                        doDisplay();
+                        if (myArena.numDrone.isEmpty() == false) {
+                            System.out.println("\n");
+                            myArena.moveAllDrones(myArena);
+                            doDisplay();
+                        } else if (myArena.numDrone.isEmpty() == true) {
+                            System.err.println("Warning! Please insert drones to move!\n");
+                        }
                     }
                     break;
                 case 't':
@@ -71,6 +81,7 @@ public class DroneInterface {
                     else {
                         if (myArena.numDrone.isEmpty() == false) {
                             for (int i = 0; i < 10; i++) {
+                                System.out.println("============================================");
                                 myArena.moveAllDrones(myArena);
                                 doDisplay();
                                 System.out.println(myArena.toString());
@@ -80,8 +91,8 @@ public class DroneInterface {
                                     System.err.format("IOException: %s%n", e);
                                 }
                             }
-                        } else if (myArena.numDrone.isEmpty() == true && myArena.getArenaHeight() == 0 || myArena.getArenaWidth() == 0) {
-                            System.err.println("Warning! Please insert drones to move!");
+                        } else if (myArena.numDrone.isEmpty() == true) {
+                            System.err.println("Warning! Please insert drones to move!\n");
                         }
                     }
                     break;
@@ -108,6 +119,10 @@ public class DroneInterface {
                     }
                     myArena = new DroneArena(inputX, inputY);
                     break;
+                case 'c':
+                case 'C':
+                    System.out.println("\n\tDRONE SIMULATOR 2020");
+                    System.out.println("\tProduced by Shavin Croos");
             }
         } while (ch != 'X');						// test if end
 
