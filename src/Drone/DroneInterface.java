@@ -1,6 +1,6 @@
 package Drone;
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +20,7 @@ public class DroneInterface {
             System.out.print("\nNote: Before you start, please create a new arena.");
             System.out.print("\n\nPlease select one of the following options: " + "\n\tAdd drone -> A " +  "\n\tGet info -> I "
                     + "\n\tDisplay arena -> D " + "\n\tCreate arena -> N " + "\n\tMove drones -> M "
-                    + "\n\tMove drones 10 times -> T" + "\n\tCredits -> C " + "\n\tExit -> X " + "\n\n\t> ");
+                    + "\n\tMove drones 10 times -> T " + "\n\tFile Routes -> F " + "\n\tCredits -> C " + "\n\tExit -> X " + "\n\n\t> ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -41,13 +41,12 @@ public class DroneInterface {
                         System.err.println("Error! No arena detected! Please create a new arena.\n");
                     }
                     else if (myArena.numDrone.isEmpty() == true){
-                        System.err.println("Warning! Please insert drones to move!\n");
+                        System.err.println("Warning! Please insert drones to move!");
+                        System.out.println("\nArena dimensions: " + inputX + " * " + inputY + ".");
                     }
                     else{
                         System.out.print("\n" + myArena.toString() + "\n");
                     }
-                    break;
-                case 'x' : 	ch = 'X';				// when X detected program ends
                     break;
                 case 'd':
                 case 'D':
@@ -118,11 +117,19 @@ public class DroneInterface {
                         inputY = s.nextInt();
                     }
                     myArena = new DroneArena(inputX, inputY);
+                    System.out.println("Arena created! Dimensions: " + inputX + " * " + inputY + ".");
+                    break;
+                case 'f':
+                case 'F':
+                    fileRoutes();
                     break;
                 case 'c':
                 case 'C':
                     System.out.println("\n\tDRONE SIMULATOR 2020");
                     System.out.println("\tProduced by Shavin Croos");
+                    break;
+                case 'x' : 	ch = 'X';				// when X detected program ends
+                    break;
             }
         } while (ch != 'X');						// test if end
 
@@ -135,6 +142,29 @@ public class DroneInterface {
         myArena.showDrones(field);
         System.out.println(field.toString());
     }
+
+    void fileRoutes(){
+        s = new Scanner(System.in);
+        char ch = ' ';
+        System.out.print("\nPlease select one of the following options: " + "\n\tSave file -> S "
+                + "\n\tLoad file -> L " + "\n\tReturn to main menu -> R " +  "\n\n\t> ");
+        ch = s.next().charAt(0);
+        s.nextLine();
+        switch (ch) {
+            case 's':
+            case 'S':
+                break;
+            case 'l':
+            case 'L':
+                break;
+            case 'r':
+            case 'R':
+                break;
+            default:
+                break;
+        }
+    }
+
     public static void main(String[] args) {
         DroneInterface r = new DroneInterface();	// just call the interface
     }
