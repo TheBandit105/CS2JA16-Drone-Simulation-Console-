@@ -1,6 +1,8 @@
 package Drone;
 
 
+import javax.swing.*;
+import java.io.*;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -153,9 +155,19 @@ public class DroneInterface {
         switch (ch) {
             case 's':
             case 'S':
+                try {
+                    fileSave();
+                } catch (Exception e) {
+                    System.out.print(" ");// error message
+                }
                 break;
             case 'l':
             case 'L':
+                try {
+                    fileLoad();
+                } catch (Exception e) {
+                    System.out.print(" ");// error message
+                }
                 break;
             case 'r':
             case 'R':
@@ -163,6 +175,47 @@ public class DroneInterface {
             default:
                 break;
         }
+    }
+
+    void fileSave() throws IOException {
+
+        JFileChooser chooser = new JFileChooser("C:\\Users\\shavi\\OneDrive\\Desktop\\Drone Files");
+        chooser.setDialogTitle("Select directory to save file ");
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        s = new Scanner(System.in);
+        String nameFile = " ";
+        System.out.println("\nCreate the name of file being saved: ");
+        nameFile = s.next();
+        chooser.setApproveButtonText("Save");
+        chooser.setApproveButtonToolTipText("Save location");
+        int returnVal = chooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+                File userFile = new File(chooser.getSelectedFile() + "\\" + nameFile + ".txt");
+                System.out.println("\nFile saved as: " + nameFile + ".txt in directory " + userFile.getAbsolutePath());
+                FileWriter fileWriter = new FileWriter(userFile);
+                BufferedWriter writer = new BufferedWriter(fileWriter);
+            writer.write(Integer.toString(myArena.getArenaWidth()));
+            writer.write(" ");
+            writer.write(Integer.toString(myArena.getArenaHeight()));
+            writer.newLine();
+                for (Drone d : myArena.numDrone){
+                    writer.write(Integer.toString(d.getX()));
+                    writer.write(" ");
+                    writer.write(Integer.toString(d.getY()));
+                    writer.write(" ");
+                    writer.write(Integer.toString(d.getFacing().ordinal()));
+                    writer.newLine();
+                }
+            if (!myArena.numDrone.isEmpty()) {
+                myArena.numDrone.clear();
+            }
+                writer.close();
+            }
+        }
+
+    void fileLoad() throws IOException{
+
     }
 
     public static void main(String[] args) {

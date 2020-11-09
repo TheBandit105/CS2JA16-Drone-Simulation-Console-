@@ -32,16 +32,11 @@ public class ConsoleCanvas {
         String print = "";
         for (int i = 0; i < blockX; i++) {
             for (int j = 0; j < blockY; j++) {
-                print = print + block[i][j] + " ";
+                print += block[i][j] + " ";
             }
-            print = print + "\n";
+            print += "\n";
         }
         return print;
     }
 
-    public static void main(String[] args){
-        ConsoleCanvas c = new ConsoleCanvas(10, 5);
-        c.showIt(4,3,'D');
-        System.out.println(c.toString());
-    }
 }
