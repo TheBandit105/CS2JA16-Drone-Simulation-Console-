@@ -1,14 +1,16 @@
 package Drone;
 
-
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.io.*;
+import java.net.NoRouteToHostException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class DroneInterface {
     private Scanner s;					// scanner used for input from user
     private DroneArena myArena;				// arena in which drones are shown
+    private int dCounter = 1;
 
     public DroneInterface() {
         s = new Scanner(System.in);			    // set up scanner for user input
@@ -157,17 +159,20 @@ public class DroneInterface {
             case 'S':
                 try {
                     fileSave();
-                } catch (Exception e) {
-                    System.out.print(" ");// error message
+                } catch (Exception a) {
+                    System.err.print(" ");
                 }
                 break;
             case 'l':
             case 'L':
                 try {
                     fileLoad();
-                } catch (Exception e) {
-                    System.out.print(" ");// error message
+                } catch (Exception b) {
+                    System.err.print(" ");
                 }
+                break;
+            case 'e':
+            case 'E':
                 break;
             case 'r':
             case 'R':
@@ -183,6 +188,21 @@ public class DroneInterface {
         chooser.setDialogTitle("Select directory to save file ");
         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
+        chooser.setFileFilter(new FileFilter() {
+            public String getDescription() {
+                return "Arena Files (*.arena)";
+            }
+
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String fileName = f.getName().toLowerCase();
+                    return fileName.endsWith(".arena");
+                }
+            }
+        });
+
         s = new Scanner(System.in);
         String nameFile = " ";
         System.out.println("\nCreate the name of file being saved: ");
@@ -191,30 +211,89 @@ public class DroneInterface {
         chooser.setApproveButtonToolTipText("Save location");
         int returnVal = chooser.showOpenDialog(null);
         if(returnVal == JFileChooser.APPROVE_OPTION){
-                File userFile = new File(chooser.getSelectedFile() + "\\" + nameFile + ".txt");
-                System.out.println("\nFile saved as: " + nameFile + ".txt in directory " + userFile.getAbsolutePath());
+                File userFile = new File(chooser.getSelectedFile() + "\\" + nameFile + ".arena");
+                System.out.println("\nFile saved as: " + nameFile + ".arena in directory " + userFile.getAbsolutePath());
+
+            if(dCounter != 1){
+                dCounter = 1;
+            }
+
                 FileWriter fileWriter = new FileWriter(userFile);
                 BufferedWriter writer = new BufferedWriter(fileWriter);
+
+            writer.write("Size of arena: ");
             writer.write(Integer.toString(myArena.getArenaWidth()));
-            writer.write(" ");
+            writer.write(" * ");
             writer.write(Integer.toString(myArena.getArenaHeight()));
             writer.newLine();
                 for (Drone d : myArena.numDrone){
+                    writer.write("Drone " + dCounter++ + " at ");
                     writer.write(Integer.toString(d.getX()));
-                    writer.write(" ");
+                    writer.write(", ");
                     writer.write(Integer.toString(d.getY()));
-                    writer.write(" ");
-                    writer.write(Integer.toString(d.getFacing().ordinal()));
+                    writer.write(" facing ");
+                    writer.write(d.getFacing().toString());
                     writer.newLine();
                 }
-            if (!myArena.numDrone.isEmpty()) {
-                myArena.numDrone.clear();
-            }
                 writer.close();
             }
         }
 
     void fileLoad() throws IOException{
+        JFileChooser chooser = new JFileChooser("C:\\Users\\shavi\\OneDrive\\Desktop\\Drone Files");
+        chooser.setDialogTitle("Select directory to load file ");
+        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        String fileContents = " ";
+
+        chooser.setFileFilter(new FileFilter() {
+            public String getDescription() {
+                return "Arena Files (*.arena)";
+            }
+
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String fileName = f.getName().toLowerCase();
+                    return fileName.endsWith(".arena");
+                }
+            }
+        });
+
+        int returnVal = chooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION){
+            File userFile = chooser.getSelectedFile();
+            if(chooser.getSelectedFile().isFile()){
+                System.out.println("File loaded!\n Name: " + userFile.getName() + " from directory "
+                        + userFile.getAbsolutePath());
+
+                if (!myArena.numDrone.isEmpty()) {
+                    myArena.numDrone.clear();
+                    myArena.numDroneArena = 0;
+                    Drone.droneCount = 1;
+                }
+
+                FileReader fileReader = new FileReader(userFile);
+                BufferedReader reader = new BufferedReader(fileReader);
+
+                fileContents = reader.readLine();
+                String[] loadSize = fileContents.split(" ");
+                int openX = Integer.parseInt(loadSize[0]);
+                int openY = Integer.parseInt(loadSize[1]);
+                myArena = new DroneArena(openX,openY);
+                while (fileContents != null){
+                    fileContents = reader.readLine();
+                    String [] numbers = fileContents.split(" ");
+                    int x = Integer.parseInt(numbers[0]);
+                    int y = Integer.parseInt(numbers[1]);
+                    int ordinal = Integer.parseInt(numbers[2]);
+                    myArena.numDrone.add(new Drone(x, y, Direction.values()[ordinal]));
+
+                }
+                reader.close();
+            }
+        }
 
     }
 

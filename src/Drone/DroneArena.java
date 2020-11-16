@@ -8,7 +8,7 @@ public class DroneArena {
     private int arenaHeight;
     Random randomCoords;
     ArrayList <Drone> numDrone;
-    private int numDroneArena;
+    public int numDroneArena;
 
     public DroneArena(int x, int y){
         arenaWidth = x;
