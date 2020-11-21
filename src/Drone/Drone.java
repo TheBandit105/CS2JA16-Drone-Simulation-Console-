@@ -1,23 +1,39 @@
 package Drone;
 
+// Week 5 Demo Tested
+// Author: Shavin Croos
+// The Drone class is responsible for drone creations, positions and movements.
+
 public class Drone {
 
-    private Direction facing;
-    private int dx, dy, droneID;
-    public static int droneCount = -1;
+    private Direction facing; // Which direction the drone faces
+    private int dx, dy; // Drone coordinates
+    private int droneID; // Main ID of the drone
+    public static int droneCount = -1; // Static variable to constantly count existing drones
 
-    public Drone (int x, int y, Direction f) {
+    /*
+     *  Drone constructor
+     *
+     *  Instantiates a drone by assigning it attributes like the x coordinate, y coordinate, id and
+     *  it's direction.
+     * */
+
+    public Drone(int x, int y, Direction f) {
         dx = x;
         dy = y;
         droneID = droneCount++;
         facing = f;
     }
 
-    public int getX(){
+    /* --- GETTER FUNCTIONS ---- */
+
+    // Returns private attributes of drones
+
+    public int getX() {
         return dx;
     }
 
-    public int getY(){
+    public int getY() {
         return dy;
     }
 
@@ -25,44 +41,55 @@ public class Drone {
         return facing;
     }
 
-    public void displayDrone(ConsoleCanvas c){
-        char droneRep = 'D';
+    /* --- GETTER FUNCTIONS ---- */
+
+    /* --- SETTER FUNCTIONS ---- */
+
+    public void resetID() {
+        droneCount = 1;
+    }
+
+    /* --- SETTER FUNCTIONS ---- */
+
+    // Shows drone on the canvas given
+    public void displayDrone(ConsoleCanvas c) {
+        char droneRep = 'D'; // Represents drones
         c.showIt(dx, dy, droneRep);
     }
 
-    public String toString(){
-        return "Drone " + droneID + " at " + dx + ", " + dy + " facing " + facing.toString();
-    }
-
-    public boolean isHere (int sx, int sy){
+    // Compares parameters with existing drone positions and sees if drone occupies that position
+    public boolean isHere(int sx, int sy) {
         if (sx == dx && sy == dy)
             return true;
         else
             return false;
     }
 
-    public void tryToMove(DroneArena a){
-        switch (facing){
+    /* Checks if drone can move. If so, then drone moves in direction specified and
+    if not, then changes direction and tries again */
+
+    public void tryToMove(DroneArena a) {
+        switch (facing) {
             case North:
-                if(a.canMoveHere(dx - 1, dy))
+                if (a.canMoveHere(dx - 1, dy))
                     dx = dx - 1;
                 else
                     facing = facing.nextDirection();
                 break;
             case East:
-                if(a.canMoveHere(dx, dy + 1))
+                if (a.canMoveHere(dx, dy + 1))
                     dy = dy + 1;
                 else
                     facing = facing.nextDirection();
                 break;
             case South:
-                if(a.canMoveHere(dx + 1, dy))
+                if (a.canMoveHere(dx + 1, dy))
                     dx = dx + 1;
                 else
                     facing = facing.nextDirection();
                 break;
             case West:
-                if(a.canMoveHere(dx, dy - 1))
+                if (a.canMoveHere(dx, dy - 1))
                     dy = dy - 1;
                 else
                     facing = facing.nextDirection();
@@ -70,10 +97,9 @@ public class Drone {
         }
     }
 
-    public static void main (String[] args) {
-        Drone d = new Drone(5,3, Direction.East);
-        System.out.println(d.toString());
-        Drone d2 = new Drone(8,10, Direction.South);
-        System.out.println(d2.toString());
+    // Shows drone information in a string format
+    public String toString() {
+        return "Drone " + droneID + " at " + dx + ", " + dy + " facing " + facing.toString();
     }
 }
+

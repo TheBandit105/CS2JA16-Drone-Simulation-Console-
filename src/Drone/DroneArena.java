@@ -3,25 +3,41 @@ package Drone;
 import java.util.ArrayList;
 import java.util.Random;
 
+// Week 5 Demo Tested
+// Author: Shavin Croos
+// DroneArena class generates the arena, with inputted dimensions, for the drones to be placed on
+
 public class DroneArena {
+    // Arena dimensions
     private int arenaWidth;
     private int arenaHeight;
-    Random randomCoords;
-    ArrayList <Drone> numDrone;
-    public int numDroneArena;
+    Random randomCoords; // Random Drone Coordinates generation
+    ArrayList<Drone> numDrone; /* Array list type Drone that will include list all the drones that are added
+     by the user */
+    public int numDroneArena; // Drone counter for interface when adding drones
 
-    public DroneArena(int x, int y){
+    /*
+     *  DroneArena constructor
+     *
+     *  Initialises the drone arena by assigning it attributes like the x coordinate, y coordinate and random generation
+     *  of coordinates for the drones.
+     * */
+    public DroneArena(int x, int y) {
         arenaWidth = x;
         arenaHeight = y;
         randomCoords = new Random();
         numDrone = new ArrayList<Drone>();
-        Drone d = new Drone(1,1, Direction.North);
+        Drone d = new Drone(1, 1, Direction.North);
+        d.resetID(); //resets id
     }
 
-    public void addDrone(){
+    /* Drones added to the arena list until number of drones in
+    list is the same as the given values of the arena dimensions
+     */
+    public void addDrone() {
         int posX;
         int posY;
-        if (numDrone.size() < arenaWidth * arenaHeight) {
+        if (numDrone.size() < (arenaWidth * arenaHeight)) {
             do {
                 posX = randomCoords.nextInt(arenaWidth);
                 posY = randomCoords.nextInt(arenaHeight);
@@ -32,7 +48,11 @@ public class DroneArena {
         }
     }
 
-    public int getArenaWidth(){
+    /* --- GETTER FUNCTIONS ---- */
+
+    // Returns the private attributes of the Arena
+
+    public int getArenaWidth() {
         return arenaWidth;
     }
 
@@ -40,8 +60,15 @@ public class DroneArena {
         return arenaHeight;
     }
 
-    public int arenaDroneNum(){
-        if(numDroneArena < (arenaWidth * arenaHeight)){
+    /* --- GETTER FUNCTIONS ---- */
+
+    /* Checks if the number of drones placed in the arena is smaller than arena size.
+       Keeps adding drones until the number reaches the arena size, by which it then
+       prints an error message stating arena is full on the interface
+     */
+
+    public int arenaDroneNum() {
+        if (numDroneArena < (arenaWidth * arenaHeight)) {
             numDroneArena++;
         } else {
             System.err.println("\nMaximum drone capacity reached!");
@@ -49,53 +76,52 @@ public class DroneArena {
         return numDroneArena;
     }
 
-    public void showDrones(ConsoleCanvas c){
-        for (Drone d : numDrone){
-            d.displayDrone(c);
-        }
-    }
 
-    public String toString(){
-        String spot = "";
-        if (numDrone.isEmpty() == false){
-            spot = "";
-            spot += "The size of the arena is: " + arenaWidth + " * " + arenaHeight;
-            for (int i = 0; i < numDrone.size(); i++){
-                spot += "\n" + numDrone.get(i).toString();
-            }
-        }
-        return spot;
-    }
-
-    public boolean canMoveHere(int x, int y){
-        if (getDroneAt(x,y) != null || x >= arenaWidth || y >= arenaHeight || x < 0 || y < 0){
+    /* Checks if drone can move to given coordinates and checks if drone position might be out
+    be out of arena boundaries*/
+    public boolean canMoveHere(int x, int y) {
+        if (getDroneAt(x, y) != null || x >= arenaWidth || y >= arenaHeight || x < 0 || y < 0) {
             return false;
         } else {
             return true;
         }
     }
 
-    public void moveAllDrones(DroneArena a){
+    // Shows all drones in the arena
+    public void showDrones(ConsoleCanvas c) {
+        for (Drone d : numDrone) {
+            d.displayDrone(c);
+        }
+    }
+
+    // Moves all the drones in the arena
+    public void moveAllDrones(DroneArena a) {
         for (Drone d : numDrone)
             d.tryToMove(a);
     }
 
-    public Drone getDroneAt(int x, int y){
-        Drone temp = null;
-        for (Drone a : numDrone){
-            if (a.isHere(x,y) == true){
+    // Checks the drone arraylist to see if there is a drone at the given coordinates
+    public Drone getDroneAt(int x, int y) {
+        Drone temp = null; // Assumes no drone found yet
+        for (Drone a : numDrone) {
+            if (a.isHere(x, y) == true) { // If drone exists, returns said drone
                 temp = a;
             }
         }
-        return temp;
+        return temp; // If drone doesn't exist, returns null
     }
 
-    public static void main(String[] args){
-        DroneArena a = new DroneArena(20, 10);
-        a.addDrone();
-        a.addDrone();
-
-        System.out.println(a.toString());
+    /* Displays arena dimensions and drone information in a string format.*/
+    public String toString() {
+        String spot = "";
+        if (numDrone.isEmpty() == false) {
+            spot = "";
+            spot += "The size of the arena is: " + arenaWidth + " * " + arenaHeight;
+            for (int i = 0; i < numDrone.size(); i++) {
+                spot += "\n" + numDrone.get(i).toString();
+            }
+        }
+        return spot;
     }
 }
 
