@@ -33,8 +33,10 @@ public class DroneInterface {
         do {
             System.out.print("\nNote: Before you start, please create a new arena.");
             System.out.print("\n\nPlease select one of the following options: " + "\n\tAdd drone -> A " + "\n\tGet info -> I "
-                    + "\n\tDisplay arena -> D " + "\n\tCreate arena -> N " + "\n\tMove drones -> M "
-                    + "\n\tMove drones 10 times -> T " + "\n\tFile Routes -> F " + "\n\tCredits -> C " + "\n\tExit -> X " + "\n\n\t> ");
+                    + "\n\tDisplay arena -> D " + "\n\tCreate arena -> N " + "\n\tMove drones once -> M "
+                    + "\n\tMove drones 10 times -> T " + "\n\tMove drones 20 times -> W "
+                    + "\n\tMove drones custom number of times -> K" + "\n\tFile Routes -> F "
+                    + "\n\tCredits -> C " + "\n\tExit -> X " + "\n\n\t> ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -78,11 +80,11 @@ public class DroneInterface {
                     if (inputX == 0 || inputY == 0) {
                         System.err.println("Error! No arena detected! Please create a new arena.\n");
                     } else {
-                        if (myArena.numDrone.isEmpty() == false) {
+                        if (!myArena.numDrone.isEmpty()) {
                             System.out.println("\n");
                             myArena.moveAllDrones(myArena);
                             doDisplay();
-                        } else if (myArena.numDrone.isEmpty() == true) {
+                        } else {
                             System.err.println("Warning! Please insert drones to move!\n");
                         }
                     }
@@ -95,19 +97,71 @@ public class DroneInterface {
                     if (myArena.getArenaHeight() == 0 || myArena.getArenaWidth() == 0) {
                         System.err.println("Error! No arena detected! Please create a new arena.\n");
                     } else {
-                        if (myArena.numDrone.isEmpty() == false) {
+                        if (!myArena.numDrone.isEmpty()) {
                             for (int i = 0; i < 10; i++) {
                                 System.out.println("============================================");
                                 myArena.moveAllDrones(myArena);
                                 doDisplay();
-                                System.out.println(myArena.toString());
+                                //System.out.println(myArena.toString());
                                 try {
                                     TimeUnit.MILLISECONDS.sleep(200); // Delays each updated drone arena by 200ms
                                 } catch (InterruptedException e) {
                                     System.err.format("IOException: %s%n", e);
                                 }
                             }
-                        } else if (myArena.numDrone.isEmpty() == true) {
+                        } else {
+                            System.err.println("Warning! Please insert drones to move!\n");
+                        }
+                    }
+                    break;
+                case 'w':
+                case 'W':
+
+                    /* Does the same as the 'move all drones once' case, but does this 20 times*/
+
+                    if (myArena.getArenaHeight() == 0 || myArena.getArenaWidth() == 0) {
+                        System.err.println("Error! No arena detected! Please create a new arena.\n");
+                    } else {
+                        if (!myArena.numDrone.isEmpty()) {
+                            for (int i = 0; i < 20; i++) {
+                                System.out.println("============================================");
+                                myArena.moveAllDrones(myArena);
+                                doDisplay();
+                                //System.out.println(myArena.toString());
+                                try {
+                                    TimeUnit.MILLISECONDS.sleep(200); // Delays each updated drone arena by 200ms
+                                } catch (InterruptedException e) {
+                                    System.err.format("IOException: %s%n", e);
+                                }
+                            }
+                        } else {
+                            System.err.println("Warning! Please insert drones to move!\n");
+                        }
+                    }
+                    break;
+                case 'k':
+                case 'K':
+                    /* Does the same as the 'move all drones once' case, but does this custom number of times*/
+
+                    if (myArena.getArenaHeight() == 0 || myArena.getArenaWidth() == 0) {
+                        System.err.println("Error! No arena detected! Please create a new arena.\n");
+                    } else {
+                        int numtimes;
+                        System.out.println("Print the number of times you want the drone to move: ");
+                        numtimes = s.nextInt();
+                        if (!myArena.numDrone.isEmpty()) {
+                            for (int i = 0; i < numtimes; i++) {
+                                System.out.println("============================================");
+                                myArena.moveAllDrones(myArena);
+                                doDisplay();
+                                //System.out.println(myArena.toString());
+                                try {
+                                    TimeUnit.MILLISECONDS.sleep(200); // Delays each updated drone arena by 200ms
+                                } catch (InterruptedException e) {
+                                    System.err.format("IOException: %s%n", e);
+                                }
+                            }
+                        } else {
                             System.err.println("Warning! Please insert drones to move!\n");
                         }
                     }
@@ -160,6 +214,9 @@ public class DroneInterface {
                     // Credits as an optional feature
                     System.out.println("\n\tDRONE SIMULATOR 2020");
                     System.out.println("\tProduced by Shavin Croos");
+                    break;
+                default:
+                    System.err.println("Invalid input! Please try again.");
                     break;
                 case 'x':
                     ch = 'X';                // when X detected program ends

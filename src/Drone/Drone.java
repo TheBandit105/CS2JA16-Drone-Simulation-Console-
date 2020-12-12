@@ -76,6 +76,20 @@ public class Drone {
                 else
                     facing = facing.nextDirection();
                 break;
+            case North_East:
+                if (a.canMoveHere(dx - 1, dy + 1)){
+                    dx = dx - 1;
+                    dy = dx + 1;
+                } else
+                    facing = facing.nextDirection();
+                break;
+            case North_West:
+                if (a.canMoveHere(dx - 1, dy - 1)) {
+                    dx = dx - 1;
+                    dy = dy - 1;
+                }else
+                    facing = facing.nextDirection();
+                break;
             case East:
                 if (a.canMoveHere(dx, dy + 1))
                     dy = dy + 1;
@@ -86,6 +100,20 @@ public class Drone {
                 if (a.canMoveHere(dx + 1, dy))
                     dx = dx + 1;
                 else
+                    facing = facing.nextDirection();
+                break;
+            case South_East:
+                if (a.canMoveHere(dx + 1, dy + 1)) {
+                    dx = dx + 1;
+                    dy = dy + 1;
+                }else
+                    facing = facing.nextDirection();
+                break;
+            case South_West:
+                if (a.canMoveHere(dx + 1, dy - 1)) {
+                    dx = dx + 1;
+                    dy = dy - 1;
+                }else
                     facing = facing.nextDirection();
                 break;
             case West:

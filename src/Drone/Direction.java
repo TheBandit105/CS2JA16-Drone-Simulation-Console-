@@ -8,7 +8,7 @@ import java.util.Random;
 
 public enum Direction {
 
-    North, East, South, West;
+    North, North_East, North_West, East, South, South_East, South_West, West;
 
     public static Direction getRandomDirection() {
         Random random = new Random(); // Creates a randomiser
